@@ -24,7 +24,7 @@ def scrape_urls(current_url):
                     
             checked_urls.add(current_url)
         except Exception as e:
-            print(f"Hata: {e}")
+            print(f"Error: {e}")
 
 # Collect all URLs starting from the main URL
 while urls - checked_urls:
