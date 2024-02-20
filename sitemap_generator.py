@@ -1,6 +1,7 @@
 import requests
 from bs4 import BeautifulSoup
 import pandas as pd
+import xml.etree.ElementTree as ET
 
 # Your website's main URL
 base_url = 'https://www.example.com'
@@ -38,3 +39,16 @@ df = pd.DataFrame(list(urls), columns=['URL'])
 excel_filename = 'sitemap.xlsx'
 df.to_excel(excel_filename, index=False)
 print(f'Sitemap saved as {excel_filename}.')
+
+# Create and save XML sitemap
+urlset = ET.Element('urlset', xmlns='http://www.sitemaps.org/schemas/sitemap/0.9')
+for url in urls:
+    url_element = ET.SubElement(urlset, 'url')
+    loc = ET.SubElement(url_element, 'loc')
+    loc.text = url
+
+# XML tree structure
+tree = ET.ElementTree(urlset)
+xml_filename = 'sitemap.xml'
+tree.write(xml_filename, encoding='utf-8', xml_declaration=True)
+print(f'Sitemap saved as {xml_filename}.')
